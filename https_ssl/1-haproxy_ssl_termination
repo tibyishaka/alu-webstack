@@ -23,10 +23,10 @@ frontend http_front
 
 frontend www-https
     bind *:443 ssl crt /etc/haproxy/certs/www.tibyishaka.tech.pem
-    reqadd X-Forwarded-Proto:\ https
-    default_backend web-backend
+    http-request add-header X-Forwarded-Proto https
+    default_backend http_back
 
 backend http_back
     balance roundrobin
     server 6441-web-01 44.201.238.52:80 check
-    server 6441-web-02 54.157.252.190:80 check  
+    server 6441-web-02 54.157.252.190:80 check
